@@ -3,7 +3,7 @@
 const request = require('supertest');
 
 import app from '../src/app';
-import Path from '../src/models/paths';
+import Paths from '../src/models/paths';
 
 describe('app', () => {
   it('responds with 404 for unknown path', ()=>{
@@ -49,12 +49,12 @@ describe('app', () => {
   
   describe('api routes', () => {
     it('can PUT to /api/v1/paths', ()=>{
-      var instrument = new Path({ name: 'Trumpet', class: 'Brass', retailer: 'Reimans' });
+      var instrument = new Paths({ name: 'Trumpet', class: 'Brass', retailer: 'Reimans' });
 
       return instrument.save()
         .then(saved => {
           return request(app)
-            .put(`/api/v1/instruments/${saved.id}`)
+            .put(`/api/v1/paths/${saved.id}`)
             .send({ name: 'Trumpet', class: 'Brass', retailer: 'West Music'})
             .expect(200)
             .expect('Content-Type', 'application/json; charset=utf-8')
@@ -74,13 +74,13 @@ describe('app', () => {
           expect(response.body.class).toBe('Brass');
         });
     });
-    it('can get /api/v1/instruments/:id', () => {
-      var instrument = new Path({ name: 'Trumpet', class: 'Brass', retailer: 'Reimans' });
+    it('can get /api/v1/paths/:id', () => {
+      var instrument = new Paths({ name: 'Trumpet', class: 'Brass', retailer: 'Reimans' });
 
       return instrument.save()
         .then(saved => {
           return request(app)
-            .get(`/api/v1/instruments/${saved.id}`)
+            .get(`/api/v1/paths/${saved.id}`)
             .expect(200)
             .expect('Content-Type', 'application/json; charset=utf-8')
             .expect(saved);
@@ -88,7 +88,7 @@ describe('app', () => {
     });
     it('can delete /api/notes/deleteme', () => {
       return request(app)
-        .delete('/api/v1/instruments/deleteme')
+        .delete('/api/v1/paths/deleteme')
         .expect(200)
         .expect('Content-Type', 'application/json; charset=utf-8')
         .expect({ message: `ID deleteme was deleted` });

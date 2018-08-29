@@ -4,7 +4,7 @@ const router = express.Router();
 
 export default router;
 
-import Path from '../models/paths';
+import Paths from '../models/paths';
 
 import cowsay from 'cowsay';
 
@@ -22,8 +22,8 @@ router.get('/api/cowsay', (req, res) =>{
     content: cowsay.say(req.query),
   });
 });
-router.get('/api/v1/instruments/:id', (req,res) =>{
-  return Instrument.findById(req.params.id)
+router.get('/api/v1/paths/:id', (req,res) =>{
+  return Path.findById(req.params.id)
     .then(instrument => {
       res.json(instrument);
     });
@@ -33,19 +33,19 @@ router.post('/api/cowsay', (req, res) => {
     message: `Hello, ${req.body.name}!`,
   });
 });
-router.post('/api/v1/instruments', (req, res) =>{
+router.post('/api/v1/paths', (req, res) =>{
   if (!req.body || !req.body.name || !req.body.class || !req.body.retailer) {
     res.send(400);
     res.end();
     return;
   }
-  var newInstrument = new Instrument(req.body);
-  newInstrument.save()
+  var newPath = new Paths(req.body);
+  newPath.save()
     .then(saved=>{
       res.json(saved);
     });
 });
-router.put('/api/v1/instruments/:id', (req,res)=>{
+router.put('/api/v1/paths/:id', (req,res)=>{
   return Instrument.findById(req.params.id)
     .then(instrument =>{
       instrument.name = req.body.name;
@@ -56,7 +56,7 @@ router.put('/api/v1/instruments/:id', (req,res)=>{
       return;
     });
 });
-router.delete('/api/v1/instruments/:id', (req,res)=>{
+router.delete('/api/v1/paths/:id', (req,res)=>{
   res.json({
     message: `ID ${req.params.id} was deleted`,
   });
