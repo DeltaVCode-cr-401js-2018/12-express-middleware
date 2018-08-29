@@ -23,7 +23,7 @@ router.get('/api/cowsay', (req, res) =>{
   });
 });
 router.get('/api/v1/paths/:id', (req,res) =>{
-  return Path.findById(req.params.id)
+  return Paths.findById(req.params.id)
     .then(instrument => {
       res.json(instrument);
     });
@@ -46,12 +46,12 @@ router.post('/api/v1/paths', (req, res) =>{
     });
 });
 router.put('/api/v1/paths/:id', (req,res)=>{
-  return Instrument.findById(req.params.id)
-    .then(instrument =>{
-      instrument.name = req.body.name;
-      instrument.class = req.body.class;
-      instrument.retailer = req.body.retailer;
-      res.json(instrument);
+  return Paths.findById(req.params.id)
+    .then(path =>{
+      path.name = req.body.name;
+      path.class = req.body.class;
+      path.retailer = req.body.retailer;
+      res.json(path);
       res.end();
       return;
     });
