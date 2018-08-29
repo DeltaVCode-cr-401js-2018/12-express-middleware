@@ -3,7 +3,7 @@
 const request = require('supertest');
 
 import app from '../src/app';
-import Instrument from '../src/models/paths';
+import Path from '../src/models/paths';
 
 describe('app', () => {
   it('responds with 404 for unknown path', ()=>{
@@ -48,8 +48,8 @@ describe('app', () => {
   });
   
   describe('api routes', () => {
-    it('can PUT to /api/v1/instruments', ()=>{
-      var instrument = new Instrument({ name: 'Trumpet', class: 'Brass', retailer: 'Reimans' });
+    it('can PUT to /api/v1/paths', ()=>{
+      var instrument = new Path({ name: 'Trumpet', class: 'Brass', retailer: 'Reimans' });
 
       return instrument.save()
         .then(saved => {
@@ -61,9 +61,9 @@ describe('app', () => {
             .expect(saved);
         });
     });
-    it('can POST /api/v1/instruments to create instrument', () => {
+    it('can POST /api/v1/paths to create paths', () => {
       return request(app)
-        .post('/api/v1/instruments')
+        .post('/api/v1/paths')
         .send({ name: 'Trumpet', class: 'Brass', retailer: 'Reimans' })
         .expect(200)
         .expect('Content-Type', 'application/json; charset=utf-8')
@@ -75,7 +75,7 @@ describe('app', () => {
         });
     });
     it('can get /api/v1/instruments/:id', () => {
-      var instrument = new Instrument({ name: 'Trumpet', class: 'Brass', retailer: 'Reimans' });
+      var instrument = new Path({ name: 'Trumpet', class: 'Brass', retailer: 'Reimans' });
 
       return instrument.save()
         .then(saved => {
