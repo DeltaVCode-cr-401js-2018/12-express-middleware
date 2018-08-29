@@ -49,13 +49,13 @@ describe('app', () => {
   
   describe('api routes', () => {
     it('can PUT to /api/v1/paths', ()=>{
-      var instrument = new Paths({ name: 'Trumpet', class: 'Brass', retailer: 'Reimans' });
+      var instrument = new Paths({ name: 'Snare', class: 'Percussion', retailer: 'West Music' });
 
       return instrument.save()
         .then(saved => {
           return request(app)
             .put(`/api/v1/paths/${saved.id}`)
-            .send({ name: 'Trumpet', class: 'Brass', retailer: 'West Music'})
+            .send({ name: 'Snare', class: 'Percussion', retailer: 'Yamaha'})
             .expect(200)
             .expect('Content-Type', 'application/json; charset=utf-8')
             .expect(saved);
@@ -64,18 +64,18 @@ describe('app', () => {
     it('can POST /api/v1/paths to create paths', () => {
       return request(app)
         .post('/api/v1/paths')
-        .send({ name: 'Trumpet', class: 'Brass', retailer: 'Reimans' })
+        .send({ name: 'Snare', class: 'Percussion', retailer: 'West Music' })
         .expect(200)
         .expect('Content-Type', 'application/json; charset=utf-8')
         .expect(response => {
           expect(response.body).toBeDefined();
           expect(response.body.id).toBeDefined();
-          expect(response.body.name).toBe('Trumpet');
-          expect(response.body.class).toBe('Brass');
+          expect(response.body.name).toBe('Snare');
+          expect(response.body.class).toBe('Percussion');
         });
     });
     it('can get /api/v1/paths/:id', () => {
-      var instrument = new Paths({ name: 'Trumpet', class: 'Brass', retailer: 'Reimans' });
+      var instrument = new Paths({ name: 'Snare', class: 'Percussion', retailer: 'West Music' });
 
       return instrument.save()
         .then(saved => {
